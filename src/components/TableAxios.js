@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import MUIDataTable from "mui-datatables";
 
-export const TableAxios = () => {
+export const TableAxios = ({ addProdutForm, product }) => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ export const TableAxios = () => {
   const getProducts = async () => {
     const resp = await axios.get(urlBase);
     const data = await resp.data;
-    console.log(data);
+    // console.log(data);
     setProducts(data);
   };
 
@@ -27,6 +27,18 @@ export const TableAxios = () => {
     const productNow = products.filter((product) => product.id === id);
     console.log(productNow);
   };
+
+  const addProdut = (product) => {
+    console.log("Me ejecute Table");
+    const newProduct = {
+      id: 21,
+      ...product,
+    };
+
+    setProducts([...products, newProduct]);
+  };
+
+  // addProdutForm(addProdut(product));
 
   const colums = [
     {
@@ -59,6 +71,7 @@ export const TableAxios = () => {
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
             <button
+              className="btn btn-danger btn-sm"
               onClick={() => {
                 console.log(value);
                 console.log(tableMeta.rowData[0]);
@@ -86,6 +99,7 @@ export const TableAxios = () => {
         customBodyRender: (value, tableMeta, updateValue) => {
           return (
             <button
+              className="btn btn-success btn-sm"
               onClick={() => {
                 updateProdut(tableMeta.rowData[0]);
               }}
@@ -109,6 +123,9 @@ export const TableAxios = () => {
   return (
     <>
       <h5>TableAxios</h5>
+      <button className="btn btn-primary" onClick={addProdut}>
+        Add product
+      </button>
       <MUIDataTable
         title={"List Products of store"}
         columns={colums}

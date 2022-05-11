@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { TableAxios } from "./TableAxios";
 
@@ -10,9 +10,17 @@ export const Form = () => {
     reset,
   } = useForm();
 
+  const [product, setProduct] = useState({});
+
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
+    setProduct(data);
+    addProdutForm();
     reset();
+  };
+
+  const addProdutForm = () => {
+    console.log("Me ejecute");
   };
 
   // RETURN
@@ -146,7 +154,7 @@ export const Form = () => {
           </div>
         </div>
         <div className="col-md-9">
-          <TableAxios />
+          <TableAxios addProdutForm={addProdutForm} product={product} />
         </div>
       </div>
     </div>
