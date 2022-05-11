@@ -1,22 +1,25 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { TableAxios } from "./TableAxios";
 
 export const Form = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
   const onSubmit = (data) => {
     console.log(data);
+    reset();
   };
 
   // RETURN
   return (
     <div className="container mt-5">
       <div className="row">
-        <div className="col-md-4">
+        <div className="col-md-3">
           <div className="card">
             <div className="card-body">
               <h5> Form of product </h5>
@@ -142,7 +145,9 @@ export const Form = () => {
             </div>
           </div>
         </div>
-        <div className="col-md-8">List of products</div>
+        <div className="col-md-9">
+          <TableAxios />
+        </div>
       </div>
     </div>
   );
